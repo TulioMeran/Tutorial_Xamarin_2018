@@ -6,43 +6,54 @@
              Title="Login"
              >
     <ContentPage.Content>
-        <ScrollView >
+        <ScrollView BindingContext="{Binding Login}" >
             <StackLayout Padding="10">
                 <!-- Place new controls here -->
                 <Label Text="AnimeZone"
-               HorizontalOptions="Center"
-               FontSize="Large"
-               FontAttributes="Bold" />
+                       HorizontalOptions="Center"
+                       FontSize="Large"
+                       FontAttributes="Bold" />
 
                 <Image Source="animeLogin"
-               WidthRequest="300"
+                       WidthRequest="300"
                />
 
 
                 <Entry Keyboard="Email"
-               Placeholder="Email"
-               FontSize="Medium"/>
+                       Placeholder="Email"
+                       FontSize="Medium"
+                       Text="{Binding Email, Mode=TwoWay}"/>
 
                 <Entry Placeholder="Password"
-               FontSize="Medium"
-               IsPassword="True"/>
+                       FontSize="Medium"
+                       IsPassword="True"
+                       Text="{Binding Password, Mode=TwoWay}"/>
 
                 <Button Text="Sign in" 
                 BackgroundColor="BlueViolet"
                 TextColor="White"
-                BorderRadius="25" />
+                BorderRadius="25"
+                Command="{Binding SignIn}" />
 
                 <Button Text="Register" 
                 BackgroundColor="LightBlue"
                 TextColor="White"
                 BorderRadius="25" />
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" >
-                    <Label Text="Remember me" VerticalOptions="Center" />
-                    <Switch></Switch>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Did you forget your password?" TextColor="Blue" />
                 </StackLayout>
 
-                <StackLayout Margin="40,40" Orientation="Horizontal" HorizontalOptions="Center" >
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" >
+                    <Label Text="Remember me" VerticalOptions="Center" />
+                    <Switch IsToggled="{Binding IsRemember, Mode=TwoWay}" ></Switch>
+                </StackLayout>
+
+                <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}">
+                    
+                </ActivityIndicator>
+
+                <StackLayout Margin="40,40" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="EndAndExpand" >
                     <Image Source="logo_Facebook" WidthRequest="100" />
                     <Image Source="logo_Instagram" WidthRequest="85" />
                 </StackLayout>
