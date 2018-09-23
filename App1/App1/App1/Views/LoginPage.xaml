@@ -33,7 +33,9 @@
                 BackgroundColor="BlueViolet"
                 TextColor="White"
                 BorderRadius="25"
-                Command="{Binding SignIn}" />
+                Command="{Binding SignInCommand}"
+                IsEnabled="{Binding IsEnabled}" 
+                        />
 
                 <Button Text="Register" 
                 BackgroundColor="LightBlue"
