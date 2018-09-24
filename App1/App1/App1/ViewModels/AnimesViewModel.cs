@@ -1,9 +1,12 @@
 ﻿using App1.Models;
 using App1.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace App1.ViewModels
@@ -19,6 +22,9 @@ namespace App1.ViewModels
         #region Atributos
 
         private ObservableCollection<Anime> animes;
+        private bool isRefreshing;
+        private string filter;
+        private List<Anime> listAnimes;
 
         #endregion
 
@@ -32,21 +38,75 @@ namespace App1.ViewModels
             set { SetValue(ref animes, value); }
         } 
 
+        public bool IsRefreshing
+        {
+
+            get { return isRefreshing; }
+
+            set { SetValue(ref isRefreshing, value); }
+        }
+
+        public string Filter
+        {
+            get { return filter; }
+
+            set {
+                
+                SetValue(ref filter, value);
+                this.Search();
+            }
+        }
+
+        #endregion
+
+        #region Comandos
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadAnimes);
+            }
+        } 
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(Search);
+            }
+        }
+
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(Filter))
+            {
+                this.Animes = new ObservableCollection<Anime>(listAnimes);
+            } else
+            {
+                this.Animes = new ObservableCollection<Anime>(listAnimes.Where(a => a.Name.ToLower().Contains(Filter.ToLower()) || a.Category.ToLower().Contains(Filter.ToLower())));
+            }
+        }
+
         #endregion
 
         public AnimesViewModel()
         {
+            
             apiService = new ApiService();
             LoadAnimes();
         }
 
         private async void LoadAnimes()
         {
+            IsRefreshing = true;
 
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
+                IsRefreshing = false;
+
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Accept");
 
                 await Application.Current.MainPage.Navigation.PopAsync();
@@ -59,6 +119,8 @@ namespace App1.ViewModels
 
             if (!response.IsSuccess)
             {
+                IsRefreshing = false;
+
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
 
                 await Application.Current.MainPage.Navigation.PopAsync();
@@ -66,8 +128,9 @@ namespace App1.ViewModels
                 return;
             }
 
-            var list = (List<Anime>)response.Result;
-            this.Animes = new ObservableCollection<Anime>(list);
+             listAnimes = (List<Anime>)response.Result;
+            this.Animes = new ObservableCollection<Anime>(listAnimes);
+            IsRefreshing = false;
         }
     }
 }

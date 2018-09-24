@@ -4,12 +4,62 @@
              x:Class="App1.Views.AnimesPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Animes"
+             BackgroundColor="Silver"
              >
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Animes}" >
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <SearchBar 
+                BackgroundColor="Silver"
+                HeightRequest="25"
+                Placeholder="Search Anime..." 
+                       Text="{Binding Filter, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"
+                           IsEnabled="True">
+
+            </SearchBar>
+            <ListView
+                BackgroundColor="Silver"
+                SeparatorVisibility="None"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemsSource="{Binding Animes}"
+                RefreshCommand="{Binding RefreshCommand}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame
+                                CornerRadius="20"
+                                HasShadow="True"
+                                Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0" VerticalOptions="Center">
+
+                                        <Label FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           Text="{Binding Name}"
+                                           TextColor="Black"/>
+                                        <Label TextColor="Black"
+                                           Text="{Binding Category}"/>
+
+                                    </StackLayout>
+                                    <Image Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Source="ic_chevron_right"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
