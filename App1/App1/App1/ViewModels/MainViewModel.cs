@@ -12,11 +12,35 @@ namespace App1.ViewModels
             get;
             set;
         } 
+
+        public AnimesViewModel Animes
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         public MainViewModel()
         {
+            instance = this;
             this.Login = new LoginViewModel();
         }
+
+        #region SingleTon
+
+        private static MainViewModel instance;
+
+        public static MainViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new MainViewModel();
+            }
+
+            return instance;
+        } 
+
+        #endregion
     }
 }
