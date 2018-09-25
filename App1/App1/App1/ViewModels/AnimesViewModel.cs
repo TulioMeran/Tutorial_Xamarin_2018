@@ -21,7 +21,7 @@ namespace App1.ViewModels
 
         #region Atributos
 
-        private ObservableCollection<Anime> animes;
+        private ObservableCollection<AnimeItemViewModel> animes;
         private bool isRefreshing;
         private string filter;
         private List<Anime> listAnimes;
@@ -30,7 +30,7 @@ namespace App1.ViewModels
 
         #region Propiedades
 
-        public ObservableCollection<Anime> Animes
+        public ObservableCollection<AnimeItemViewModel> Animes
         {
 
             get { return animes; }
@@ -81,14 +81,34 @@ namespace App1.ViewModels
         {
             if (string.IsNullOrEmpty(Filter))
             {
-                this.Animes = new ObservableCollection<Anime>(listAnimes);
+                this.Animes = new ObservableCollection<AnimeItemViewModel>( this.ToAnimeItemViewModel());
             } else
             {
-                this.Animes = new ObservableCollection<Anime>(listAnimes.Where(a => a.Name.ToLower().Contains(Filter.ToLower()) || a.Category.ToLower().Contains(Filter.ToLower())));
+                this.Animes = new ObservableCollection<AnimeItemViewModel>(this.ToAnimeItemViewModel().Where(a => a.Name.ToLower().Contains(Filter.ToLower()) || a.Category.ToLower().Contains(Filter.ToLower())));
             }
         }
 
+
         #endregion
+
+        private IEnumerable<AnimeItemViewModel> ToAnimeItemViewModel()
+        {
+
+            return this.listAnimes.Select(a => new AnimeItemViewModel
+            {
+
+                Name = a.Name,
+                Category = a.Category,
+                Description = a.Description,
+                Episode = a.Episode,
+                Rating = a.Rating,
+                Studio = a.Studio,
+                Img = a.Img
+
+            });
+
+        }
+
 
         public AnimesViewModel()
         {
@@ -129,7 +149,7 @@ namespace App1.ViewModels
             }
 
              listAnimes = (List<Anime>)response.Result;
-            this.Animes = new ObservableCollection<Anime>(listAnimes);
+            this.Animes = new ObservableCollection<AnimeItemViewModel>(this.ToAnimeItemViewModel());
             IsRefreshing = false;
         }
     }

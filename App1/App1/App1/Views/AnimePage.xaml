@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.AnimePage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Anime" >
+    
+    <ContentPage.Content>
+        <ScrollView  BindingContext="{Binding Anime}" Padding="10">
+            <StackLayout >
+                <Label 
+                    Text="{Binding Anime.Name}"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    FontSize="Large"/>
+
+                <Label     Text="Description"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           TextColor="Black"
+                           HorizontalOptions="StartAndExpand"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                        
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="{Binding Anime.Description}"/>
+
+                    <Image Grid.Column="1" Grid.Row="0" WidthRequest="200" HeightRequest="200" Source="{Binding Anime.Img}" ></Image>
+
+                </Grid>
+                <Grid Margin="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                        <Label
+                           
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Category"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           />
+                        <Label 
+                             HorizontalOptions="End"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                            FontSize="Medium"
+                          Text="{Binding Anime.Category}"                       
+                        />
+
+                        <Label 
+                          
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Episode"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           />
+                        <Label 
+                             HorizontalOptions="End"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                            FontSize="Medium"
+                          Text="{Binding Anime.Episode}"                       
+                        />
+                        
+                        <Label 
+                        
+                           Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Rating"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           />
+                        <Label 
+                               HorizontalOptions="End"
+                          Grid.Column="1"
+                          Grid.Row="2"
+                            FontSize="Medium"
+                          Text="{Binding Anime.Rating}"                       
+                        />
+
+                        <Label
+                         
+                           Grid.Column="0"
+                           Grid.Row="3"
+                           Text="Studio"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           />
+                        <Label 
+                              HorizontalOptions="End"
+                          Grid.Column="1"
+                          Grid.Row="3"
+                            FontSize="Medium"
+                          Text="{Binding Anime.Studio}"                       
+                        />
+
+
+                </Grid>
+                
+
+                
+                
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>

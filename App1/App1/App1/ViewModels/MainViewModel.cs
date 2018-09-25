@@ -19,6 +19,12 @@ namespace App1.ViewModels
             set;
         }
 
+        public AnimeViewModel Anime
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         public MainViewModel()
