@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Views.AnimePage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             Title="Anime" >
+             Title="Anime Information" 
+             Icon="ic_format_list_bulleted">
     
     <ContentPage.Content>
         <ScrollView  BindingContext="{Binding Anime}" Padding="10">

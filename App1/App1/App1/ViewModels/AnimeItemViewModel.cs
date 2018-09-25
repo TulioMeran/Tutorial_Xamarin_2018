@@ -23,7 +23,7 @@ namespace App1.ViewModels
         {
 
             MainViewModel.GetInstance().Anime = new AnimeViewModel(this);
-            await Application.Current.MainPage.Navigation.PushAsync(new AnimePage());
+            await Application.Current.MainPage.Navigation.PushAsync(new AnimeTabbedPage());
 
         }
     }
